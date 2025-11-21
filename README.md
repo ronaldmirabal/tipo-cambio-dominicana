@@ -11,20 +11,20 @@ Proveer una solución estandarizada y reutilizable para proyectos Laravel que re
 Instala el paquete vía Composer:
 
 ```bash
-composer require :vendor_slug/:package_slug
+composer require ronaldmirabal/tipo-cambio-dominicana
 ```
 
 You can publish and run the migrations with:
 
 ```bash
-php artisan vendor:publish --tag=":package_slug-migrations"
+php artisan vendor:publish --tag="tipo-cambio-dominicana-migrations"
 php artisan migrate
 ```
 
 You can publish the config file with:
 
 ```bash
-php artisan vendor:publish --tag=":package_slug-config"
+php artisan vendor:publish --tag="tipo-cambio-dominicana-config"
 ```
 
 This is the contents of the published config file:
@@ -37,14 +37,14 @@ return [
 Optionally, you can publish the views using
 
 ```bash
-php artisan vendor:publish --tag=":package_slug-views"
+php artisan vendor:publish --tag="tipo-cambio-dominicana-views"
 ```
 
 ## Usage
 
 ```php
-$variable = new VendorName\Skeleton();
-echo $variable->echoPhrase('Hello, VendorName!');
+$tipoCambioDominicana = new Ronaldmirabal\TipoCambioDominicana();
+echo $tipoCambioDominicana->echoPhrase('Hello, Ronaldmirabal!');
 ```
 
 ## Testing

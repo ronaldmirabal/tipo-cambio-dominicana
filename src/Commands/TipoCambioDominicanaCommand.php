@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Ronaldmirabal\TipoCambioDominicana\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class TipoCambioDominicanaCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'tipo-cambio-dominicana';
 
     public $description = 'My command';
 
