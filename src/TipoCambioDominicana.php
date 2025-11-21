@@ -9,35 +9,59 @@ class TipoCambioDominicana
 {
 
     protected string $baseUrl = 'https://www.banreservas.com';
-
-    public function usdToDop(float $usdMount) : float
+    protected Client $client;
+    public function __construct()
     {
-        $client = new Client(['cookies' => true]);
-        $response = $client->get($this->baseUrl);
-        $html = (string) $response->getBody();
-        $crawler = new Crawler($html);
-
-        // USD
-        $usdSell = $crawler->filter('td.tasacambio-ventaUS')->text();
-        $clean = preg_replace('/[^0-9.,]/', '', $usdSell);
-        $usdSellFloat = (float)$clean;
-        $result = $usdSellFloat * $usdMount;
-        return $result;
+        $this->client = new Client([
+            'cookies' => true,
+            'timeout' => 10,
+            'connect_timeout' => 5,
+            'verify' => false
+        ]);
     }
 
-     public function eurToDop(float $eurMount) : float
+    /**
+     * Obtiene la tasa de venta de una moneda desde Banreservas
+     */
+    protected function getSellRate(string $selector): float
     {
-        $client = new Client(['cookies' => true]);
-        $response = $client->get($this->baseUrl);
-        $html = (string) $response->getBody();
-        $crawler = new Crawler($html);
+        try {
+            $response = $this->client->get($this->baseUrl);
+            $html = (string) $response->getBody();
+            $crawler = new Crawler($html);
 
-        // USD
-        $eurSell = $crawler->filter('td.tasacambio-ventaEU')->text();
-        $clean = preg_replace('/[^0-9.,]/', '', $eurSell);
-        $eurSellFloat = (float)$clean;
-        $result = $eurSellFloat * $eurMount;
-        return $result;
+            $rateText = $crawler->filter($selector)->text();
+
+            // Limpiar string y convertir a float
+            $clean = preg_replace('/[^0-9.,]/', '', $rateText);
+            $normalized = str_replace(',', '.', $clean);
+            $value = (float)$normalized;
+
+            return round($value, 2); // asegurar 2 decimales
+        } catch (\Exception $e) {
+            throw new \RuntimeException("Error obteniendo tasa de cambio: " . $e->getMessage());
+        }
     }
 
+    public function usdToDop(float $usdAmount): float
+    {
+        $rate = $this->getSellRate('td.tasacambio-ventaUS');
+        return round($rate * $usdAmount, 2);
+    }
+
+    public function showUsdSell(): float
+    {
+        return $this->getSellRate('td.tasacambio-ventaUS');
+    }
+
+    public function euToDop(float $eurAmount): float
+    {
+        $rate = $this->getSellRate('td.tasacambio-ventaEU');
+        return round($rate * $eurAmount, 2);
+    }
+
+    public function showEuSell(): float
+    {
+        return $this->getSellRate('td.tasacambio-ventaEU');
+    }
 }
