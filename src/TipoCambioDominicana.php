@@ -23,7 +23,7 @@ class TipoCambioDominicana
     /**
      * Obtiene la tasa de venta de una moneda desde Banreservas
      */
-    protected function getSellRate(string $selector): float
+    private function getSellRate(string $selector): float
     {
         try {
             $response = $this->client->get($this->baseUrl);
