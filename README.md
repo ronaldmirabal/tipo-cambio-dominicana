@@ -1,7 +1,7 @@
 # Descripción del Paquete
 TipoCambioDomincana es un paquete desarrollado para facilitar la consulta del tipo de cambio oficial del Dólar (USD) y del Euro (EUR) frente al Peso Dominicano (DOP).
 
-Este paquete ofrece una interfaz simple, eficiente y totalmente integrada con Laravel para obtener tasas de cambio actualizadas utilizando fuentes confiables del mercado financiero dominicano.
+Este paquete ofrece una interfaz simple, eficiente y totalmente integrada con Laravel para obtener tasas de cambio actualizadas utilizando fuentes confiables del mercado financiero dominicano como Banreservas del cual se obtiene el tipo de cambio.
 
 # 🎯 Objetivo
 Proveer una solución estandarizada y reutilizable para proyectos Laravel que requieran obtener el tipo de cambio en tiempo real con una sola línea de código.
@@ -14,12 +14,10 @@ Instala el paquete vía Composer:
 composer require ronaldmirabal/tipo-cambio-dominicana
 ```
 
-You can publish and run the migrations with:
+## :clipboard: Requisitos
+- PHP ^8.1
+- Laravel ^10.0
 
-```bash
-php artisan vendor:publish --tag="tipo-cambio-dominicana-migrations"
-php artisan migrate
-```
 
 You can publish the config file with:
 
@@ -27,32 +25,23 @@ You can publish the config file with:
 php artisan vendor:publish --tag="tipo-cambio-dominicana-config"
 ```
 
-This is the contents of the published config file:
+
+## Como Usar
 
 ```php
-return [
-];
+use Ronaldmirabal\TipoCambioDominicana\TipoCambioDominicana;
+
+$exchange = new TipoCambioDominicana();
+$result = $exchange->usdToDop(500); // 500 USD, por ejemplo
 ```
 
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="tipo-cambio-dominicana-views"
-```
-
-## Usage
-
+## :rotating_light: Funciones Accesibles
 ```php
-$tipoCambioDominicana = new Ronaldmirabal\TipoCambioDominicana();
-echo $tipoCambioDominicana->echoPhrase('Hello, Ronaldmirabal!');
+$result = $exchange->usdToDop(500); //Convierte de dolares a peso dominicano
+$result = $exchange->showUsdSell(500); //Muestra el tipo de cambio del dolar para la venta
+$result = $exchange->euToDop(500); //Convierte de euros a peso dominicano
+$result = $exchange->showEuSell(500); //Muestra el tipo de cambio del euro para la venta
 ```
-
-## Testing
-
-```bash
-composer test
-```
-
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
