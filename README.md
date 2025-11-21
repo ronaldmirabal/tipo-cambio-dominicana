@@ -67,7 +67,7 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 ## Credits
 
-- [:author_name](https://github.com/:author_username)
+- [:Ronald Mirabal](https://github.com/:ronaldmirabal)
 - [All Contributors](../../contributors)
 
 ## License
