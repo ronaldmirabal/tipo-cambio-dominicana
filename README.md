@@ -38,9 +38,9 @@ $result = $exchange->usdToDop(500); // 500 USD, por ejemplo
 ## :rotating_light: Funciones Accesibles
 ```php
 $result = $exchange->usdToDop(500); //Convierte de dolares a peso dominicano
-$result = $exchange->showUsdSell(500); //Muestra el tipo de cambio del dolar para la venta
+$result = $exchange->showUsdSell(); //Muestra el tipo de cambio del dolar para la venta
 $result = $exchange->euToDop(500); //Convierte de euros a peso dominicano
-$result = $exchange->showEuSell(500); //Muestra el tipo de cambio del euro para la venta
+$result = $exchange->showEuSell(); //Muestra el tipo de cambio del euro para la venta
 ```
 ## Changelog
 
